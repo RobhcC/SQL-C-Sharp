@@ -2,15 +2,8 @@ namespace Winform_SQLite
 {
     partial class Form1
     {
-        /// <summary>
-        /// 必需的设计器变量。
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// 清理所有正在使用的资源。
-        /// </summary>
-        /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,10 +15,6 @@ namespace Winform_SQLite
 
         #region Windows 窗体设计器生成的代码
 
-        /// <summary>
-        /// 设计器支持所需的方法 - 不要修改
-        /// 使用代码编辑器修改此方法的内容。
-        /// </summary>
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -33,16 +22,18 @@ namespace Winform_SQLite
             this.btnCreateTempTable = new System.Windows.Forms.Button();
             this.btnInsertTemp = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
+            this.txtLog = new System.Windows.Forms.TextBox();
+            this.lblLog = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 300);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 270);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(776, 138);
+            this.dataGridView1.Size = new System.Drawing.Size(786, 168);
             this.dataGridView1.TabIndex = 0;
             // 
             // button1
@@ -67,7 +58,7 @@ namespace Winform_SQLite
             // 
             // btnInsertTemp
             // 
-            this.btnInsertTemp.Location = new System.Drawing.Point(12, 94);
+            this.btnInsertTemp.Location = new System.Drawing.Point(198, 53);
             this.btnInsertTemp.Name = "btnInsertTemp";
             this.btnInsertTemp.Size = new System.Drawing.Size(180, 35);
             this.btnInsertTemp.TabIndex = 3;
@@ -85,11 +76,35 @@ namespace Winform_SQLite
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
+            // txtLog
+            // 
+            this.txtLog.BackColor = System.Drawing.Color.Black;
+            this.txtLog.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLog.ForeColor = System.Drawing.Color.Lime;
+            this.txtLog.Location = new System.Drawing.Point(12, 125);
+            this.txtLog.Multiline = true;
+            this.txtLog.Name = "txtLog";
+            this.txtLog.ReadOnly = true;
+            this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtLog.Size = new System.Drawing.Size(786, 139);
+            this.txtLog.TabIndex = 6;
+            // 
+            // lblLog
+            // 
+            this.lblLog.AutoSize = true;
+            this.lblLog.Location = new System.Drawing.Point(12, 110);
+            this.lblLog.Name = "lblLog";
+            this.lblLog.Size = new System.Drawing.Size(65, 12);
+            this.lblLog.TabIndex = 5;
+            this.lblLog.Text = "日志信息：";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.txtLog);
+            this.Controls.Add(this.lblLog);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnInsertTemp);
             this.Controls.Add(this.btnCreateTempTable);
@@ -99,6 +114,7 @@ namespace Winform_SQLite
             this.Text = "SQLite学习 - 第1天：SQL基础+增删改查";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -108,6 +124,7 @@ namespace Winform_SQLite
         private System.Windows.Forms.Button btnCreateTempTable;
         private System.Windows.Forms.Button btnInsertTemp;
         private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.TextBox txtLog;
+        private System.Windows.Forms.Label lblLog;
     }
 }
-
