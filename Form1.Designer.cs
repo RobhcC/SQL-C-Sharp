@@ -31,6 +31,7 @@ namespace Winform_SQLite
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
             this.btnCreateTempTable = new System.Windows.Forms.Button();
+            this.btnInsertTemp = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,11 +64,22 @@ namespace Winform_SQLite
             this.btnCreateTempTable.UseVisualStyleBackColor = true;
             this.btnCreateTempTable.Click += new System.EventHandler(this.btnCreateTempTable_Click);
             // 
+            // btnInsertTemp
+            // 
+            this.btnInsertTemp.Location = new System.Drawing.Point(12, 94);
+            this.btnInsertTemp.Name = "btnInsertTemp";
+            this.btnInsertTemp.Size = new System.Drawing.Size(180, 35);
+            this.btnInsertTemp.TabIndex = 3;
+            this.btnInsertTemp.Text = "插入PLC温度采集数据";
+            this.btnInsertTemp.UseVisualStyleBackColor = true;
+            this.btnInsertTemp.Click += new System.EventHandler(this.btnInsertTemp_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnInsertTemp);
             this.Controls.Add(this.btnCreateTempTable);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1);
@@ -82,6 +94,7 @@ namespace Winform_SQLite
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnCreateTempTable;
+        private System.Windows.Forms.Button btnInsertTemp;
     }
 }
 
