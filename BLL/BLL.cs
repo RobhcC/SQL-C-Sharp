@@ -1,0 +1,138 @@
+using System;
+using System.Data;
+using Winform_SQLite.DAL;
+using Winform_SQLite.Models;
+
+namespace Winform_SQLite.BLL
+{
+    public class BLL
+    {
+        public event Action<string> OnLog;
+
+        private void Log(string message)
+        {
+            OnLog?.Invoke(message);
+        }
+
+        public void InitializeDatabase()
+        {
+            try
+            {
+                DAL.DAL.InitializeDatabase();
+                Log("数据库初始化完成");
+            }
+            catch (Exception ex)
+            {
+                Log($"[错误] 数据库初始化失败: {ex.Message}");
+                throw;
+            }
+        }
+
+        // Device相关操作
+        public void CreateDeviceTableAndInsertSample()
+        {
+            try
+            {
+                Log("开始创建Device表并插入数据...");
+                DAL.DAL.CreateDeviceTable();
+                Log("Device表创建成功");
+
+                Device device = new Device
+                {
+                    Name = "温度传感器",
+                    Type = "传感器",
+                    CreateTime = DateTime.Now
+                };
+                int result = DAL.DAL.InsertDevice(device);
+                Log($"插入数据成功: {device.Name}");
+
+                DataTable dt = DAL.DAL.GetAllDevices();
+                Log($"查询完成，共 {dt.Rows.Count} 条记录");
+            }
+            catch (Exception ex)
+            {
+                Log($"[错误] 操作失败: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void UpdateDeviceName(int id, string newName)
+        {
+            try
+            {
+                Log("开始更新设备名称...");
+                Device device = new Device { Id = id, Name = newName };
+                int rowsAffected = DAL.DAL.UpdateDevice(device);
+                Log($"更新完成，影响 {rowsAffected} 条记录");
+            }
+            catch (Exception ex)
+            {
+                Log($"[错误] 更新失败: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void DeleteDevice(int id)
+        {
+            try
+            {
+                Log("开始删除设备记录...");
+                int rowsAffected = DAL.DAL.DeleteDevice(id);
+                Log($"删除完成，影响 {rowsAffected} 条记录");
+            }
+            catch (Exception ex)
+            {
+                Log($"[错误] 删除失败: {ex.Message}");
+                throw;
+            }
+        }
+
+        public DataTable GetAllDevices()
+        {
+            return DAL.DAL.GetAllDevices();
+        }
+
+        // TemperatureHistory相关操作
+        public void CreateTemperatureTable()
+        {
+            try
+            {
+                Log("开始创建温度采集历史表...");
+                DAL.DAL.CreateTemperatureTable();
+                Log("TemperatureHistory表创建成功");
+            }
+            catch (Exception ex)
+            {
+                Log($"[错误] 创建表失败: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void InsertPLCTemperature(string deviceName, double temperature, int qualityStamp)
+        {
+            try
+            {
+                Log("开始插入PLC温度采集数据...");
+                TemperatureHistory record = new TemperatureHistory
+                {
+                    DeviceName = deviceName,
+                    Temperature = temperature,
+                    CollectTime = DateTime.Now,
+                    QualityStamp = qualityStamp
+                };
+                int result = DAL.DAL.InsertTemperature(record);
+                Log($"插入数据成功: {deviceName}, 温度={temperature}");
+            }
+            catch (Exception ex)
+            {
+                Log($"[错误] 插入数据失败: {ex.Message}");
+                throw;
+            }
+        }
+
+        public DataTable GetAllTemperatures()
+        {
+            return DAL.DAL.GetAllTemperatures();
+        }
+    }
+}

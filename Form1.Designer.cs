@@ -78,9 +78,6 @@ namespace Winform_SQLite
             // 
             // txtLog
             // 
-            this.txtLog.BackColor = System.Drawing.Color.Black;
-            this.txtLog.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLog.ForeColor = System.Drawing.Color.Lime;
             this.txtLog.Location = new System.Drawing.Point(12, 125);
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";

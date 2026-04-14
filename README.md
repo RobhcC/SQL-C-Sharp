@@ -1,7 +1,7 @@
 # Winform_SQLite 学习项目
 
 ## 项目简介
-这是一个基于 C# Windows Forms 的 SQLite 数据库学习项目，用于练习 SQL 基础操作和参数化查询。
+这是一个基于 C# Windows Forms 的 SQLite 数据库学习项目，采用简化的三层架构，用于练习 SQL 基础操作和参数化查询。
 
 ## 功能说明
 - 自动创建数据库文件夹和文件（D:\SQLiteData\device.db）
@@ -17,21 +17,39 @@
 - C#
 - Windows Forms
 - SQLite 数据库
-- .NET Framework
+- .NET Framework 4.6
 
 ## 项目结构
 ```
 Winform_SQLite/
-├── Properties/          # 项目属性文件
-├── Form1.cs             # 主窗体代码
-├── Form1.Designer.cs    # 窗体设计文件
-├── Form1.resx           # 窗体资源文件
-├── Program.cs           # 程序入口
-├── Winform_SQLite.csproj # 项目文件
-├── Winform_SQLite.slnx  # 解决方案文件
-├── packages.config      # 包配置文件
-└── README.md            # 项目说明文件
+├── Models/                     # 模型层
+│   ├── Device.cs              # 设备模型
+│   └── TemperatureHistory.cs  # 温度历史模型
+├── DAL/                        # 数据访问层
+│   └── DAL.cs                 # 数据库操作类
+├── BLL/                        # 业务逻辑层
+│   └── BLL.cs                 # 业务逻辑类
+├── Form1.cs                    # UI层 - 界面交互
+├── Form1.Designer.cs           # 窗体设计文件
+├── Program.cs                  # 程序入口
+└── README.md                   # 项目说明文件
 ```
+
+## 架构说明
+
+### 三层架构
+| 层 | 文件 | 职责 |
+|---|------|------|
+| Models | Device.cs, TemperatureHistory.cs | 数据模型定义 |
+| DAL | DAL.cs | 数据库操作（CRUD） |
+| BLL | BLL.cs | 业务逻辑处理 |
+| UI | Form1.cs | 界面交互 |
+
+### 各层职责
+- **Models层**：定义数据模型，对应数据库表结构
+- **DAL层**：封装所有数据库操作，包括连接管理、SQL执行
+- **BLL层**：处理业务逻辑，调用DAL层方法，处理异常
+- **UI层**：只负责界面交互，调用BLL层方法
 
 ## 如何运行
 1. 打开 Visual Studio
@@ -48,7 +66,7 @@ Winform_SQLite/
 - **更新设备名称**：使用UPDATE语句修改设备名称
 
 ### 2. 日志功能
-- **实时日志显示**：右侧黑色区域实时显示操作日志
+- **实时日志显示**：窗体下方显示操作日志
 - **日志文件记录**：日志自动保存到 `D:\SQLiteData\log.txt`
 - **异常捕获**：所有操作都有try-catch异常处理
 
@@ -101,6 +119,7 @@ Winform_SQLite/
 - 学习 Windows Forms 中 DataGridView 的使用
 - 掌握 using 语句的正确使用方式（自动管理资源）
 - 学习日志记录和异常处理的最佳实践
+- 理解三层架构的基本概念
 
 ## 注意事项
 - 数据库文件存储在 `D:\SQLiteData\device.db`
@@ -125,3 +144,4 @@ MIT License
 - 参数化查询
 - 工控场景 SQL 语句练习
 - 日志记录和异常处理
+- 三层架构基础
