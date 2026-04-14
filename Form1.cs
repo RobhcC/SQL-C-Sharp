@@ -40,7 +40,6 @@ namespace Winform_SQLite
         // 创建Device表并插入示例数据
         private void button1_Click(object sender, EventArgs e)
         {
-            // 使用using语句自动管理数据库连接资源
             using (var conn = new SQLiteConnection(connectionString))
             {
                 // 打开数据库连接
@@ -90,12 +89,10 @@ namespace Winform_SQLite
         // 创建设备温度采集历史表
         private void btnCreateTempTable_Click(object sender, EventArgs e)
         {
-            // 使用using语句自动管理数据库连接资源
             using (var conn = new SQLiteConnection(connectionString))
             {
                 // 打开数据库连接
                 conn.Open();
-
                 // 创建温度采集历史表（如果不存在）
                 // 设置Id为主键，自动递增，不为空
                 string createTableSql = @"
