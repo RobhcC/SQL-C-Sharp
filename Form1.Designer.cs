@@ -32,6 +32,7 @@ namespace Winform_SQLite
             this.button1 = new System.Windows.Forms.Button();
             this.btnCreateTempTable = new System.Windows.Forms.Button();
             this.btnInsertTemp = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -74,11 +75,22 @@ namespace Winform_SQLite
             this.btnInsertTemp.UseVisualStyleBackColor = true;
             this.btnInsertTemp.Click += new System.EventHandler(this.btnInsertTemp_Click);
             // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Location = new System.Drawing.Point(198, 12);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(180, 35);
+            this.btnUpdate.TabIndex = 4;
+            this.btnUpdate.Text = "更新设备名称";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnInsertTemp);
             this.Controls.Add(this.btnCreateTempTable);
             this.Controls.Add(this.button1);
@@ -95,6 +107,7 @@ namespace Winform_SQLite
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnCreateTempTable;
         private System.Windows.Forms.Button btnInsertTemp;
+        private System.Windows.Forms.Button btnUpdate;
     }
 }
 

@@ -144,5 +144,32 @@ namespace Winform_SQLite
                 MessageBox.Show("插入PLC温度采集数据成功！");
             }
         }
+
+        // 更新设备名称
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            // 使用using语句自动管理数据库连接资源
+            using (var conn = new SQLiteConnection(connectionString))
+            {
+                // 打开数据库连接
+                conn.Open();
+
+                // 更新Device表中Id为1的记录的Name字段
+                // UPDATE语句用于修改已有数据
+                string updateSql = @"
+                    UPDATE Device 
+                    SET Name = @newName 
+                    WHERE Id = @id";
+                using (var cmd = new SQLiteCommand(updateSql, conn))
+                {
+                    // 使用参数化查询，防止SQL注入
+                    cmd.Parameters.AddWithValue("@newName", "更新后的设备名称");
+                    cmd.Parameters.AddWithValue("@id", 1);
+                    // ExecuteNonQuery返回受影响的行数
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    MessageBox.Show($"更新了 {rowsAffected} 条记录");
+                }
+            }
+        }
     }
 }
