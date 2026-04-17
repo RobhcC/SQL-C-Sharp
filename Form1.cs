@@ -77,5 +77,101 @@ namespace Winform_SQLite
             }
             catch { }
         }
+
+        private void btnDeleteDevice_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (int.TryParse(txtDeviceId.Text, out int id))
+                {
+                    bll.DeleteDevice(id);
+                    dataGridView1.DataSource = bll.GetAllDevices();
+                }
+                else
+                {
+                    Log("[提示] 请输入有效的设备ID");
+                }
+            }
+            catch { }
+        }
+
+        private void btnQueryAllTemp_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                dataGridView1.DataSource = bll.GetAllTemperatures();
+            }
+            catch { }
+        }
+
+        private void btnQueryByDevice_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string deviceName = txtDeviceName.Text.Trim();
+                if (!string.IsNullOrEmpty(deviceName))
+                {
+                    dataGridView1.DataSource = bll.GetTemperaturesByDeviceName(deviceName);
+                }
+                else
+                {
+                    Log("[提示] 请输入设备名称");
+                }
+            }
+            catch { }
+        }
+
+        private void btnQueryByRange_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (double.TryParse(txtMinTemp.Text, out double minTemp) &&
+                    double.TryParse(txtMaxTemp.Text, out double maxTemp))
+                {
+                    dataGridView1.DataSource = bll.GetTemperaturesByRange(minTemp, maxTemp);
+                }
+                else
+                {
+                    Log("[提示] 请输入有效的温度范围");
+                }
+            }
+            catch { }
+        }
+
+        private void btnDeleteTemp_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (int.TryParse(txtTempId.Text, out int id))
+                {
+                    bll.DeleteTemperature(id);
+                    dataGridView1.DataSource = bll.GetAllTemperatures();
+                }
+                else
+                {
+                    Log("[提示] 请输入有效的温度记录ID");
+                }
+            }
+            catch { }
+        }
+
+        private void btnStats_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int deviceCount, tempCount;
+                bll.GetRecordCounts(out deviceCount, out tempCount);
+            }
+            catch { }
+        }
+
+        private void btnQueryAllDevices_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                dataGridView1.DataSource = bll.GetAllDevices();
+            }
+            catch { }
+        }
     }
 }

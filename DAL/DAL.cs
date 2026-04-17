@@ -176,5 +176,84 @@ namespace Winform_SQLite.DAL
             }
             return dt;
         }
+
+        public static DataTable GetTemperaturesByDeviceName(string deviceName)
+        {
+            DataTable dt = new DataTable();
+            using (var conn = GetConnection())
+            {
+                conn.Open();
+                string sql = "SELECT * FROM TemperatureHistory WHERE DeviceName = @deviceName";
+                using (var cmd = new SQLiteCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@deviceName", deviceName);
+                    using (var adapter = new SQLiteDataAdapter(cmd))
+                    {
+                        adapter.Fill(dt);
+                    }
+                }
+            }
+            return dt;
+        }
+
+        public static DataTable GetTemperaturesByRange(double minTemp, double maxTemp)
+        {
+            DataTable dt = new DataTable();
+            using (var conn = GetConnection())
+            {
+                conn.Open();
+                string sql = "SELECT * FROM TemperatureHistory WHERE Temperature >= @minTemp AND Temperature <= @maxTemp ORDER BY CollectTime DESC";
+                using (var cmd = new SQLiteCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@minTemp", minTemp);
+                    cmd.Parameters.AddWithValue("@maxTemp", maxTemp);
+                    using (var adapter = new SQLiteDataAdapter(cmd))
+                    {
+                        adapter.Fill(dt);
+                    }
+                }
+            }
+            return dt;
+        }
+
+        public static int DeleteTemperature(int id)
+        {
+            using (var conn = GetConnection())
+            {
+                conn.Open();
+                string sql = "DELETE FROM TemperatureHistory WHERE Id = @id";
+                using (var cmd = new SQLiteCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+                    return cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static int GetDeviceCount()
+        {
+            using (var conn = GetConnection())
+            {
+                conn.Open();
+                string sql = "SELECT COUNT(*) FROM Device";
+                using (var cmd = new SQLiteCommand(sql, conn))
+                {
+                    return Convert.ToInt32(cmd.ExecuteScalar());
+                }
+            }
+        }
+
+        public static int GetTemperatureCount()
+        {
+            using (var conn = GetConnection())
+            {
+                conn.Open();
+                string sql = "SELECT COUNT(*) FROM TemperatureHistory";
+                using (var cmd = new SQLiteCommand(sql, conn))
+                {
+                    return Convert.ToInt32(cmd.ExecuteScalar());
+                }
+            }
+        }
     }
 }

@@ -134,5 +134,69 @@ namespace Winform_SQLite.BLL
         {
             return DAL.DAL.GetAllTemperatures();
         }
+
+        public DataTable GetTemperaturesByDeviceName(string deviceName)
+        {
+            try
+            {
+                Log($"按设备名查询温度数据: {deviceName}");
+                DataTable dt = DAL.DAL.GetTemperaturesByDeviceName(deviceName);
+                Log($"查询完成，共 {dt.Rows.Count} 条记录");
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                Log($"[错误] 查询失败: {ex.Message}");
+                throw;
+            }
+        }
+
+        public DataTable GetTemperaturesByRange(double minTemp, double maxTemp)
+        {
+            try
+            {
+                Log($"按温度范围查询: {minTemp}~{maxTemp}");
+                DataTable dt = DAL.DAL.GetTemperaturesByRange(minTemp, maxTemp);
+                Log($"查询完成，共 {dt.Rows.Count} 条记录");
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                Log($"[错误] 查询失败: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void DeleteTemperature(int id)
+        {
+            try
+            {
+                Log($"开始删除温度记录 ID={id}...");
+                int rowsAffected = DAL.DAL.DeleteTemperature(id);
+                Log($"删除完成，影响 {rowsAffected} 条记录");
+            }
+            catch (Exception ex)
+            {
+                Log($"[错误] 删除失败: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void GetRecordCounts(out int deviceCount, out int tempCount)
+        {
+            try
+            {
+                deviceCount = DAL.DAL.GetDeviceCount();
+                tempCount = DAL.DAL.GetTemperatureCount();
+                Log($"统计完成: 设备 {deviceCount} 条, 温度 {tempCount} 条");
+            }
+            catch (Exception ex)
+            {
+                deviceCount = 0;
+                tempCount = 0;
+                Log($"[错误] 统计失败: {ex.Message}");
+                throw;
+            }
+        }
     }
 }
