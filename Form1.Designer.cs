@@ -22,7 +22,7 @@ namespace Winform_SQLite
             this.btnCreateTempTable = new System.Windows.Forms.Button();
             this.btnInsertTemp = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
-            this.txtLog = new System.Windows.Forms.TextBox();
+            this.listLog = new System.Windows.Forms.ListBox();
             this.lblLog = new System.Windows.Forms.Label();
             this.btnDeleteDevice = new System.Windows.Forms.Button();
             this.txtDeviceId = new System.Windows.Forms.TextBox();
@@ -280,15 +280,14 @@ namespace Winform_SQLite
             this.lblLog.TabIndex = 5;
             this.lblLog.Text = "日志信息：";
             //
-            // txtLog
+            // listLog
             //
-            this.txtLog.Location = new System.Drawing.Point(12, 193);
-            this.txtLog.Multiline = true;
-            this.txtLog.Name = "txtLog";
-            this.txtLog.ReadOnly = true;
-            this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtLog.Size = new System.Drawing.Size(776, 100);
-            this.txtLog.TabIndex = 6;
+            this.listLog.FormattingEnabled = true;
+            this.listLog.ItemHeight = 12;
+            this.listLog.Location = new System.Drawing.Point(12, 193);
+            this.listLog.Name = "listLog";
+            this.listLog.Size = new System.Drawing.Size(776, 100);
+            this.listLog.TabIndex = 6;
             //
             // dataGridView1
             //
@@ -307,7 +306,7 @@ namespace Winform_SQLite
             this.Controls.Add(this.grpQuery);
             this.Controls.Add(this.grpTemp);
             this.Controls.Add(this.grpDevice);
-            this.Controls.Add(this.txtLog);
+            this.Controls.Add(this.listLog);
             this.Controls.Add(this.lblLog);
             this.Controls.Add(this.dataGridView1);
             this.Name = "Form1";
@@ -330,7 +329,7 @@ namespace Winform_SQLite
         private System.Windows.Forms.Button btnCreateTempTable;
         private System.Windows.Forms.Button btnInsertTemp;
         private System.Windows.Forms.Button btnUpdate;
-        private System.Windows.Forms.TextBox txtLog;
+        private System.Windows.Forms.ListBox listLog;
         private System.Windows.Forms.Label lblLog;
         private System.Windows.Forms.Button btnDeleteDevice;
         private System.Windows.Forms.TextBox txtDeviceId;

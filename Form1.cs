@@ -49,15 +49,20 @@ namespace Winform_SQLite
                 // 日志文件写入失败时，只在界面显示
             }
             
-            if (txtLog != null && !txtLog.IsDisposed)
+            if (listLog != null && !listLog.IsDisposed)
             {
-                if (txtLog.InvokeRequired)
+                if (listLog.InvokeRequired)
                 {
-                    txtLog.Invoke(new Action(() => txtLog.AppendText(logMessage + Environment.NewLine)));
+                    listLog.Invoke(new Action(() =>
+                    {
+                        listLog.Items.Add(logMessage);
+                        listLog.TopIndex = listLog.Items.Count - 1;
+                    }));
                 }
                 else
                 {
-                    txtLog.AppendText(logMessage + Environment.NewLine);
+                    listLog.Items.Add(logMessage);
+                    listLog.TopIndex = listLog.Items.Count - 1;
                 }
             }
         }
