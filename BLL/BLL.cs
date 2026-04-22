@@ -7,13 +7,16 @@ namespace Winform_SQLite.BLL
 {
     public class BLL
     {
+        #region 事件定义和日志方法
         public event Action<string> OnLog;
 
         private void Log(string message)
         {
             OnLog?.Invoke(message);
         }
+        #endregion
 
+        #region 数据库初始化
         public void InitializeDatabase()
         {
             try
@@ -27,8 +30,9 @@ namespace Winform_SQLite.BLL
                 throw;
             }
         }
+        #endregion
 
-        // Device相关操作
+        #region Device表操作
         public void CreateDeviceTableAndInsertSample()
         {
             try
@@ -89,10 +93,32 @@ namespace Winform_SQLite.BLL
 
         public DataTable GetAllDevices()
         {
-            return DAL.DAL.GetAllDevices();
+            try
+            {
+                return DAL.DAL.GetAllDevices();
+            }
+            catch (Exception ex)
+            {
+                Log($"[错误] 查询设备数据失败: {ex.Message}");
+                throw;
+            }
         }
 
-        // TemperatureHistory相关操作
+        public int GetDeviceCount()
+        {
+            try
+            {
+                return DAL.DAL.GetDeviceCount();
+            }
+            catch (Exception ex)
+            {
+                Log($"[错误] 获取设备数量失败: {ex.Message}");
+                throw;
+            }
+        }
+        #endregion
+
+        #region TemperatureHistory表操作
         public void CreateTemperatureTable()
         {
             try
@@ -132,7 +158,15 @@ namespace Winform_SQLite.BLL
 
         public DataTable GetAllTemperatures()
         {
-            return DAL.DAL.GetAllTemperatures();
+            try
+            {
+                return DAL.DAL.GetAllTemperatures();
+            }
+            catch (Exception ex)
+            {
+                Log($"[错误] 查询温度数据失败: {ex.Message}");
+                throw;
+            }
         }
 
         public DataTable GetTemperaturesByDeviceName(string deviceName)
@@ -182,6 +216,19 @@ namespace Winform_SQLite.BLL
             }
         }
 
+        public int GetTemperatureCount()
+        {
+            try
+            {
+                return DAL.DAL.GetTemperatureCount();
+            }
+            catch (Exception ex)
+            {
+                Log($"[错误] 获取温度数据数量失败: {ex.Message}");
+                throw;
+            }
+        }
+
         public void GetRecordCounts(out int deviceCount, out int tempCount)
         {
             try
@@ -198,5 +245,6 @@ namespace Winform_SQLite.BLL
                 throw;
             }
         }
+        #endregion
     }
 }

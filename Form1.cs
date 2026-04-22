@@ -8,9 +8,12 @@ namespace Winform_SQLite
 {
     public partial class Form1 : Form
     {
+        #region 字段定义
         private BLL.BLL bll = new BLL.BLL();
-        private string logFilePath = "D:\\SQLiteData\\log.txt";
+        private string logFilePath = @"D:\SQLiteData\log.txt";
+        #endregion
 
+        #region 构造函数和初始化
         public Form1()
         {
             InitializeComponent();
@@ -20,14 +23,32 @@ namespace Winform_SQLite
 
         private void InitializeBLL()
         {
-            bll.OnLog += Log;
-            bll.InitializeDatabase();
+            try
+            {
+                bll.OnLog += Log;
+                bll.InitializeDatabase();
+            }
+            catch (Exception ex)
+            {
+                Log($"[错误] BLL初始化失败: {ex.Message}");
+            }
         }
+        #endregion
 
+        #region 日志方法
         private void Log(string message)
         {
             string logMessage = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] {message}";
-            File.AppendAllText(logFilePath, logMessage + Environment.NewLine);
+            
+            try
+            {
+                File.AppendAllText(logFilePath, logMessage + Environment.NewLine);
+            }
+            catch
+            {
+                // 日志文件写入失败时，只在界面显示
+            }
+            
             if (txtLog != null && !txtLog.IsDisposed)
             {
                 if (txtLog.InvokeRequired)
@@ -40,7 +61,9 @@ namespace Winform_SQLite
                 }
             }
         }
+        #endregion
 
+        #region Device表操作事件
         private void button1_Click(object sender, EventArgs e)
         {
             try
@@ -48,25 +71,10 @@ namespace Winform_SQLite
                 bll.CreateDeviceTableAndInsertSample();
                 dataGridView1.DataSource = bll.GetAllDevices();
             }
-            catch { }
-        }
-
-        private void btnCreateTempTable_Click(object sender, EventArgs e)
-        {
-            try
+            catch (Exception ex)
             {
-                bll.CreateTemperatureTable();
+                Log($"[错误] 创建Device表并插入数据失败: {ex.Message}");
             }
-            catch { }
-        }
-
-        private void btnInsertTemp_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                bll.InsertPLCTemperature("PLC_01", 25.6, 1);
-            }
-            catch { }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -75,7 +83,10 @@ namespace Winform_SQLite
             {
                 bll.UpdateDeviceName(1, "更新后的设备名称");
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Log($"[错误] 更新设备名称失败: {ex.Message}");
+            }
         }
 
         private void btnDeleteDevice_Click(object sender, EventArgs e)
@@ -92,7 +103,48 @@ namespace Winform_SQLite
                     Log("[提示] 请输入有效的设备ID");
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Log($"[错误] 删除设备失败: {ex.Message}");
+            }
+        }
+
+        private void btnQueryAllDevices_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                dataGridView1.DataSource = bll.GetAllDevices();
+            }
+            catch (Exception ex)
+            {
+                Log($"[错误] 查询设备数据失败: {ex.Message}");
+            }
+        }
+        #endregion
+
+        #region TemperatureHistory表操作事件
+        private void btnCreateTempTable_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                bll.CreateTemperatureTable();
+            }
+            catch (Exception ex)
+            {
+                Log($"[错误] 创建TemperatureHistory表失败: {ex.Message}");
+            }
+        }
+
+        private void btnInsertTemp_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                bll.InsertPLCTemperature("PLC_01", 25.6, 1);
+            }
+            catch (Exception ex)
+            {
+                Log($"[错误] 插入温度数据失败: {ex.Message}");
+            }
         }
 
         private void btnQueryAllTemp_Click(object sender, EventArgs e)
@@ -101,7 +153,10 @@ namespace Winform_SQLite
             {
                 dataGridView1.DataSource = bll.GetAllTemperatures();
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Log($"[错误] 查询温度数据失败: {ex.Message}");
+            }
         }
 
         private void btnQueryByDevice_Click(object sender, EventArgs e)
@@ -118,7 +173,10 @@ namespace Winform_SQLite
                     Log("[提示] 请输入设备名称");
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Log($"[错误] 按设备名称查询失败: {ex.Message}");
+            }
         }
 
         private void btnQueryByRange_Click(object sender, EventArgs e)
@@ -135,7 +193,10 @@ namespace Winform_SQLite
                     Log("[提示] 请输入有效的温度范围");
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Log($"[错误] 按温度范围查询失败: {ex.Message}");
+            }
         }
 
         private void btnDeleteTemp_Click(object sender, EventArgs e)
@@ -152,9 +213,14 @@ namespace Winform_SQLite
                     Log("[提示] 请输入有效的温度记录ID");
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Log($"[错误] 删除温度数据失败: {ex.Message}");
+            }
         }
+        #endregion
 
+        #region 统计功能事件
         private void btnStats_Click(object sender, EventArgs e)
         {
             try
@@ -162,16 +228,11 @@ namespace Winform_SQLite
                 int deviceCount, tempCount;
                 bll.GetRecordCounts(out deviceCount, out tempCount);
             }
-            catch { }
-        }
-
-        private void btnQueryAllDevices_Click(object sender, EventArgs e)
-        {
-            try
+            catch (Exception ex)
             {
-                dataGridView1.DataSource = bll.GetAllDevices();
+                Log($"[错误] 统计数据失败: {ex.Message}");
             }
-            catch { }
         }
+        #endregion
     }
 }
