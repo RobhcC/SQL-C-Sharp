@@ -82,6 +82,16 @@ namespace Winform_SQLite.DAL
 
         public static int InsertDevice(Device device)
         {
+            if (device == null)
+            {
+                throw new ArgumentNullException(nameof(device), "设备对象不能为空");
+            }
+
+            if (string.IsNullOrEmpty(device.Name))
+            {
+                throw new ArgumentException("设备名称不能为空", nameof(device.Name));
+            }
+
             try
             {
                 using (var conn = GetConnection())
@@ -107,6 +117,11 @@ namespace Winform_SQLite.DAL
 
         public static int UpdateDevice(Device device)
         {
+            if (device == null)
+            {
+                throw new ArgumentNullException(nameof(device), "设备对象不能为空");
+            }
+
             try
             {
                 using (var conn = GetConnection())

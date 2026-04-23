@@ -48,27 +48,6 @@ namespace Winform_SQLite.BLL
             }
         }
 
-        public void InsertSampleDevice()
-        {
-            try
-            {
-                Log("开始插入示例设备数据...");
-                Device device = new Device
-                {
-                    Name = "温度传感器",
-                    Type = "传感器",
-                    CreateTime = DateTime.Now
-                };
-                int result = DAL.DAL.InsertDevice(device);
-                Log($"插入数据成功: {device.Name}");
-            }
-            catch (Exception ex)
-            {
-                Log($"[错误] 插入数据失败: {ex.Message}");
-                throw;
-            }
-        }
-
         public void UpdateDeviceName(int id, string newName)
         {
             try
