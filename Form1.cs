@@ -86,7 +86,24 @@ namespace Winform_SQLite
         {
             try
             {
-                bll.UpdateDeviceName(1, "更新后的设备名称");
+                if (int.TryParse(txtDeviceId.Text, out int id))
+                {
+                    string newName = txtNewDeviceName.Text.Trim();
+                    if (!string.IsNullOrEmpty(newName))
+                    {
+                        bll.UpdateDeviceName(id, newName);
+                        dataGridView1.DataSource = bll.GetAllDevices();
+                        txtNewDeviceName.Clear();
+                    }
+                    else
+                    {
+                        Log("[提示] 设备名称不能为空");
+                    }
+                }
+                else
+                {
+                    Log("[提示] 请输入有效的设备ID");
+                }
             }
             catch (Exception ex)
             {

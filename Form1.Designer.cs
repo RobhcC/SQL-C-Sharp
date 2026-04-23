@@ -42,6 +42,8 @@ namespace Winform_SQLite
             this.grpDevice = new System.Windows.Forms.GroupBox();
             this.grpTemp = new System.Windows.Forms.GroupBox();
             this.grpQuery = new System.Windows.Forms.GroupBox();
+            this.txtNewDeviceName = new System.Windows.Forms.TextBox();
+            this.lblNewDeviceName = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.grpDevice.SuspendLayout();
             this.grpTemp.SuspendLayout();
@@ -53,6 +55,8 @@ namespace Winform_SQLite
             this.grpDevice.Controls.Add(this.button1);
             this.grpDevice.Controls.Add(this.btnQueryAllDevices);
             this.grpDevice.Controls.Add(this.btnUpdate);
+            this.grpDevice.Controls.Add(this.lblNewDeviceName);
+            this.grpDevice.Controls.Add(this.txtNewDeviceName);
             this.grpDevice.Controls.Add(this.lblDeviceId);
             this.grpDevice.Controls.Add(this.txtDeviceId);
             this.grpDevice.Controls.Add(this.btnDeleteDevice);
@@ -67,55 +71,71 @@ namespace Winform_SQLite
             //
             this.button1.Location = new System.Drawing.Point(6, 18);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(170, 28);
+            this.button1.Size = new System.Drawing.Size(120, 28);
             this.button1.TabIndex = 1;
-            this.button1.Text = "创建Device表并插入数据";
+            this.button1.Text = "创建表并插入数据";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             //
             // btnQueryAllDevices
             //
-            this.btnQueryAllDevices.Location = new System.Drawing.Point(182, 18);
+            this.btnQueryAllDevices.Location = new System.Drawing.Point(130, 18);
             this.btnQueryAllDevices.Name = "btnQueryAllDevices";
-            this.btnQueryAllDevices.Size = new System.Drawing.Size(120, 28);
+            this.btnQueryAllDevices.Size = new System.Drawing.Size(90, 28);
             this.btnQueryAllDevices.TabIndex = 11;
-            this.btnQueryAllDevices.Text = "查询所有设备";
+            this.btnQueryAllDevices.Text = "查询设备";
             this.btnQueryAllDevices.UseVisualStyleBackColor = true;
             this.btnQueryAllDevices.Click += new System.EventHandler(this.btnQueryAllDevices_Click);
             //
+            // lblNewDeviceName
+            //
+            this.lblNewDeviceName.AutoSize = true;
+            this.lblNewDeviceName.Location = new System.Drawing.Point(230, 23);
+            this.lblNewDeviceName.Name = "lblNewDeviceName";
+            this.lblNewDeviceName.Size = new System.Drawing.Size(65, 12);
+            this.lblNewDeviceName.TabIndex = 12;
+            this.lblNewDeviceName.Text = "新名称：";
+            //
+            // txtNewDeviceName
+            //
+            this.txtNewDeviceName.Location = new System.Drawing.Point(301, 20);
+            this.txtNewDeviceName.Name = "txtNewDeviceName";
+            this.txtNewDeviceName.Size = new System.Drawing.Size(80, 21);
+            this.txtNewDeviceName.TabIndex = 13;
+            //
             // btnUpdate
             //
-            this.btnUpdate.Location = new System.Drawing.Point(308, 18);
+            this.btnUpdate.Location = new System.Drawing.Point(387, 18);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(120, 28);
+            this.btnUpdate.Size = new System.Drawing.Size(90, 28);
             this.btnUpdate.TabIndex = 4;
-            this.btnUpdate.Text = "更新设备名称";
+            this.btnUpdate.Text = "更新名称";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             //
             // lblDeviceId
             //
             this.lblDeviceId.AutoSize = true;
-            this.lblDeviceId.Location = new System.Drawing.Point(440, 23);
+            this.lblDeviceId.Location = new System.Drawing.Point(485, 23);
             this.lblDeviceId.Name = "lblDeviceId";
             this.lblDeviceId.Size = new System.Drawing.Size(53, 12);
-            this.lblDeviceId.TabIndex = 12;
+            this.lblDeviceId.TabIndex = 14;
             this.lblDeviceId.Text = "设备ID：";
             //
             // txtDeviceId
             //
-            this.txtDeviceId.Location = new System.Drawing.Point(499, 20);
+            this.txtDeviceId.Location = new System.Drawing.Point(544, 20);
             this.txtDeviceId.Name = "txtDeviceId";
-            this.txtDeviceId.Size = new System.Drawing.Size(50, 21);
-            this.txtDeviceId.TabIndex = 13;
+            this.txtDeviceId.Size = new System.Drawing.Size(40, 21);
+            this.txtDeviceId.TabIndex = 15;
             this.txtDeviceId.Text = "1";
             //
             // btnDeleteDevice
             //
-            this.btnDeleteDevice.Location = new System.Drawing.Point(555, 18);
+            this.btnDeleteDevice.Location = new System.Drawing.Point(594, 18);
             this.btnDeleteDevice.Name = "btnDeleteDevice";
-            this.btnDeleteDevice.Size = new System.Drawing.Size(100, 28);
-            this.btnDeleteDevice.TabIndex = 14;
+            this.btnDeleteDevice.Size = new System.Drawing.Size(90, 28);
+            this.btnDeleteDevice.TabIndex = 16;
             this.btnDeleteDevice.Text = "删除设备";
             this.btnDeleteDevice.UseVisualStyleBackColor = true;
             this.btnDeleteDevice.Click += new System.EventHandler(this.btnDeleteDevice_Click);
@@ -139,36 +159,36 @@ namespace Winform_SQLite
             //
             this.btnCreateTempTable.Location = new System.Drawing.Point(6, 18);
             this.btnCreateTempTable.Name = "btnCreateTempTable";
-            this.btnCreateTempTable.Size = new System.Drawing.Size(170, 28);
+            this.btnCreateTempTable.Size = new System.Drawing.Size(120, 28);
             this.btnCreateTempTable.TabIndex = 2;
-            this.btnCreateTempTable.Text = "创建温度采集历史表";
+            this.btnCreateTempTable.Text = "创建温度历史表";
             this.btnCreateTempTable.UseVisualStyleBackColor = true;
             this.btnCreateTempTable.Click += new System.EventHandler(this.btnCreateTempTable_Click);
             //
             // btnInsertTemp
             //
-            this.btnInsertTemp.Location = new System.Drawing.Point(182, 18);
+            this.btnInsertTemp.Location = new System.Drawing.Point(130, 18);
             this.btnInsertTemp.Name = "btnInsertTemp";
-            this.btnInsertTemp.Size = new System.Drawing.Size(120, 28);
+            this.btnInsertTemp.Size = new System.Drawing.Size(90, 28);
             this.btnInsertTemp.TabIndex = 3;
-            this.btnInsertTemp.Text = "插入温度数据";
+            this.btnInsertTemp.Text = "插入温度";
             this.btnInsertTemp.UseVisualStyleBackColor = true;
             this.btnInsertTemp.Click += new System.EventHandler(this.btnInsertTemp_Click);
             //
             // btnQueryAllTemp
             //
-            this.btnQueryAllTemp.Location = new System.Drawing.Point(308, 18);
+            this.btnQueryAllTemp.Location = new System.Drawing.Point(226, 18);
             this.btnQueryAllTemp.Name = "btnQueryAllTemp";
-            this.btnQueryAllTemp.Size = new System.Drawing.Size(120, 28);
+            this.btnQueryAllTemp.Size = new System.Drawing.Size(90, 28);
             this.btnQueryAllTemp.TabIndex = 16;
-            this.btnQueryAllTemp.Text = "查询所有温度";
+            this.btnQueryAllTemp.Text = "查询温度";
             this.btnQueryAllTemp.UseVisualStyleBackColor = true;
             this.btnQueryAllTemp.Click += new System.EventHandler(this.btnQueryAllTemp_Click);
             //
             // lblTempId
             //
             this.lblTempId.AutoSize = true;
-            this.lblTempId.Location = new System.Drawing.Point(440, 23);
+            this.lblTempId.Location = new System.Drawing.Point(324, 23);
             this.lblTempId.Name = "lblTempId";
             this.lblTempId.Size = new System.Drawing.Size(65, 12);
             this.lblTempId.TabIndex = 17;
@@ -176,19 +196,19 @@ namespace Winform_SQLite
             //
             // txtTempId
             //
-            this.txtTempId.Location = new System.Drawing.Point(511, 20);
+            this.txtTempId.Location = new System.Drawing.Point(395, 20);
             this.txtTempId.Name = "txtTempId";
-            this.txtTempId.Size = new System.Drawing.Size(50, 21);
+            this.txtTempId.Size = new System.Drawing.Size(40, 21);
             this.txtTempId.TabIndex = 18;
             this.txtTempId.Text = "1";
             //
             // btnDeleteTemp
             //
-            this.btnDeleteTemp.Location = new System.Drawing.Point(567, 18);
+            this.btnDeleteTemp.Location = new System.Drawing.Point(445, 18);
             this.btnDeleteTemp.Name = "btnDeleteTemp";
-            this.btnDeleteTemp.Size = new System.Drawing.Size(100, 28);
+            this.btnDeleteTemp.Size = new System.Drawing.Size(90, 28);
             this.btnDeleteTemp.TabIndex = 19;
-            this.btnDeleteTemp.Text = "删除温度记录";
+            this.btnDeleteTemp.Text = "删除温度";
             this.btnDeleteTemp.UseVisualStyleBackColor = true;
             this.btnDeleteTemp.Click += new System.EventHandler(this.btnDeleteTemp_Click);
             //
@@ -212,7 +232,7 @@ namespace Winform_SQLite
             //
             this.btnQueryByDevice.Location = new System.Drawing.Point(6, 18);
             this.btnQueryByDevice.Name = "btnQueryByDevice";
-            this.btnQueryByDevice.Size = new System.Drawing.Size(130, 28);
+            this.btnQueryByDevice.Size = new System.Drawing.Size(110, 28);
             this.btnQueryByDevice.TabIndex = 21;
             this.btnQueryByDevice.Text = "按设备名查询";
             this.btnQueryByDevice.UseVisualStyleBackColor = true;
@@ -220,7 +240,7 @@ namespace Winform_SQLite
             //
             // txtDeviceName
             //
-            this.txtDeviceName.Location = new System.Drawing.Point(142, 20);
+            this.txtDeviceName.Location = new System.Drawing.Point(122, 20);
             this.txtDeviceName.Name = "txtDeviceName";
             this.txtDeviceName.Size = new System.Drawing.Size(80, 21);
             this.txtDeviceName.TabIndex = 22;
@@ -228,9 +248,9 @@ namespace Winform_SQLite
             //
             // btnQueryByRange
             //
-            this.btnQueryByRange.Location = new System.Drawing.Point(232, 18);
+            this.btnQueryByRange.Location = new System.Drawing.Point(212, 18);
             this.btnQueryByRange.Name = "btnQueryByRange";
-            this.btnQueryByRange.Size = new System.Drawing.Size(130, 28);
+            this.btnQueryByRange.Size = new System.Drawing.Size(110, 28);
             this.btnQueryByRange.TabIndex = 23;
             this.btnQueryByRange.Text = "按温度范围查询";
             this.btnQueryByRange.UseVisualStyleBackColor = true;
@@ -238,7 +258,7 @@ namespace Winform_SQLite
             //
             // txtMinTemp
             //
-            this.txtMinTemp.Location = new System.Drawing.Point(368, 20);
+            this.txtMinTemp.Location = new System.Drawing.Point(328, 20);
             this.txtMinTemp.Name = "txtMinTemp";
             this.txtMinTemp.Size = new System.Drawing.Size(50, 21);
             this.txtMinTemp.TabIndex = 24;
@@ -247,7 +267,7 @@ namespace Winform_SQLite
             // lblTo
             //
             this.lblTo.AutoSize = true;
-            this.lblTo.Location = new System.Drawing.Point(424, 23);
+            this.lblTo.Location = new System.Drawing.Point(384, 23);
             this.lblTo.Name = "lblTo";
             this.lblTo.Size = new System.Drawing.Size(17, 12);
             this.lblTo.TabIndex = 25;
@@ -255,7 +275,7 @@ namespace Winform_SQLite
             //
             // txtMaxTemp
             //
-            this.txtMaxTemp.Location = new System.Drawing.Point(447, 20);
+            this.txtMaxTemp.Location = new System.Drawing.Point(407, 20);
             this.txtMaxTemp.Name = "txtMaxTemp";
             this.txtMaxTemp.Size = new System.Drawing.Size(50, 21);
             this.txtMaxTemp.TabIndex = 26;
@@ -263,9 +283,9 @@ namespace Winform_SQLite
             //
             // btnStats
             //
-            this.btnStats.Location = new System.Drawing.Point(510, 18);
+            this.btnStats.Location = new System.Drawing.Point(467, 18);
             this.btnStats.Name = "btnStats";
-            this.btnStats.Size = new System.Drawing.Size(100, 28);
+            this.btnStats.Size = new System.Drawing.Size(90, 28);
             this.btnStats.TabIndex = 27;
             this.btnStats.Text = "统计记录数";
             this.btnStats.UseVisualStyleBackColor = true;
@@ -349,5 +369,7 @@ namespace Winform_SQLite
         private System.Windows.Forms.GroupBox grpDevice;
         private System.Windows.Forms.GroupBox grpTemp;
         private System.Windows.Forms.GroupBox grpQuery;
+        private System.Windows.Forms.TextBox txtNewDeviceName;
+        private System.Windows.Forms.Label lblNewDeviceName;
     }
 }
