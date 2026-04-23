@@ -46,7 +46,6 @@ namespace Winform_SQLite
             }
             catch
             {
-                // 日志文件写入失败时，只在界面显示
             }
             
             if (listLog != null && !listLog.IsDisposed)
