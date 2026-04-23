@@ -33,14 +33,26 @@ namespace Winform_SQLite.BLL
         #endregion
 
         #region Device表操作
-        public void CreateDeviceTableAndInsertSample()
+        public void CreateDeviceTable()
         {
             try
             {
-                Log("开始创建Device表并插入数据...");
+                Log("开始创建Device表...");
                 DAL.DAL.CreateDeviceTable();
                 Log("Device表创建成功");
+            }
+            catch (Exception ex)
+            {
+                Log($"[错误] 创建Device表失败: {ex.Message}");
+                throw;
+            }
+        }
 
+        public void InsertSampleDevice()
+        {
+            try
+            {
+                Log("开始插入示例设备数据...");
                 Device device = new Device
                 {
                     Name = "温度传感器",
@@ -49,13 +61,10 @@ namespace Winform_SQLite.BLL
                 };
                 int result = DAL.DAL.InsertDevice(device);
                 Log($"插入数据成功: {device.Name}");
-
-                DataTable dt = DAL.DAL.GetAllDevices();
-                Log($"查询完成，共 {dt.Rows.Count} 条记录");
             }
             catch (Exception ex)
             {
-                Log($"[错误] 操作失败: {ex.Message}");
+                Log($"[错误] 插入数据失败: {ex.Message}");
                 throw;
             }
         }

@@ -52,7 +52,7 @@ namespace Winform_SQLite
             {
                 if (listLog.InvokeRequired)
                 {
-                    listLog.Invoke(new Action(() =>
+                    listLog.BeginInvoke(new Action(() =>
                     {
                         listLog.Items.Add(logMessage);
                         listLog.TopIndex = listLog.Items.Count - 1;
@@ -72,12 +72,13 @@ namespace Winform_SQLite
         {
             try
             {
-                bll.CreateDeviceTableAndInsertSample();
+                bll.CreateDeviceTable();
+                bll.InsertSampleDevice();
                 dataGridView1.DataSource = bll.GetAllDevices();
             }
             catch (Exception ex)
             {
-                Log($"[错误] 创建Device表并插入数据失败: {ex.Message}");
+                Log($"[错误] 操作失败: {ex.Message}");
             }
         }
 
