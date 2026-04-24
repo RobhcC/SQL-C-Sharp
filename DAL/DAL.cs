@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
+using System.Threading.Tasks;
 using Winform_SQLite.Models;
 
 namespace Winform_SQLite.DAL
@@ -376,6 +377,150 @@ namespace Winform_SQLite.DAL
             catch (Exception ex)
             {
                 throw new Exception($"获取温度数据数量失败: {ex.Message}", ex);
+            }
+        }
+
+        public static void BatchInsertWithTransaction(int count)
+        {
+            try
+            {
+                using (var conn = GetConnection())
+                {
+                    conn.Open();
+                    using (var transaction = conn.BeginTransaction())
+                    {
+                        try
+                        {
+                            string sql = @"
+                                INSERT INTO TemperatureHistory (DeviceName, Temperature, CollectTime, QualityStamp)
+                                VALUES (@deviceName, @temperature, @collectTime, @qualityStamp)";
+                            using (var cmd = new SQLiteCommand(sql, conn, transaction))
+                            {
+                                for (int i = 0; i < count; i++)
+                                {
+                                    cmd.Parameters.Clear();
+                                    cmd.Parameters.AddWithValue("@deviceName", $"Device_{i % 10}");
+                                    cmd.Parameters.AddWithValue("@temperature", 20 + (i % 10));
+                                    cmd.Parameters.AddWithValue("@collectTime", DateTime.Now);
+                                    cmd.Parameters.AddWithValue("@qualityStamp", 1);
+                                    cmd.ExecuteNonQuery();
+                                }
+                            }
+                            transaction.Commit();
+                        }
+                        catch (Exception)
+                        {
+                            transaction.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"批量插入数据失败: {ex.Message}", ex);
+            }
+        }
+
+        public static void BatchInsertWithoutTransaction(int count)
+        {
+            try
+            {
+                using (var conn = GetConnection())
+                {
+                    conn.Open();
+                    string sql = @"
+                        INSERT INTO TemperatureHistory (DeviceName, Temperature, CollectTime, QualityStamp)
+                        VALUES (@deviceName, @temperature, @collectTime, @qualityStamp)";
+                    using (var cmd = new SQLiteCommand(sql, conn))
+                    {
+                        for (int i = 0; i < count; i++)
+                        {
+                            cmd.Parameters.Clear();
+                            cmd.Parameters.AddWithValue("@deviceName", $"Device_{i % 10}");
+                            cmd.Parameters.AddWithValue("@temperature", 20 + (i % 10));
+                            cmd.Parameters.AddWithValue("@collectTime", DateTime.Now);
+                            cmd.Parameters.AddWithValue("@qualityStamp", 1);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"批量插入数据失败: {ex.Message}", ex);
+            }
+        }
+
+        public static async Task BatchInsertWithTransactionAsync(int count)
+        {
+            try
+            {
+                using (var conn = GetConnection())
+                {
+                    await conn.OpenAsync();
+                    using (var transaction = conn.BeginTransaction())
+                    {
+                        try
+                        {
+                            string sql = @"
+                                INSERT INTO TemperatureHistory (DeviceName, Temperature, CollectTime, QualityStamp)
+                                VALUES (@deviceName, @temperature, @collectTime, @qualityStamp)";
+                            using (var cmd = new SQLiteCommand(sql, conn, transaction))
+                            {
+                                for (int i = 0; i < count; i++)
+                                {
+                                    cmd.Parameters.Clear();
+                                    cmd.Parameters.AddWithValue("@deviceName", $"Device_{i % 10}");
+                                    cmd.Parameters.AddWithValue("@temperature", 20 + (i % 10));
+                                    cmd.Parameters.AddWithValue("@collectTime", DateTime.Now);
+                                    cmd.Parameters.AddWithValue("@qualityStamp", 1);
+                                    await cmd.ExecuteNonQueryAsync();
+                                }
+                            }
+                            transaction.Commit();
+                        }
+                        catch (Exception)
+                        {
+                            transaction.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"批量插入数据失败: {ex.Message}", ex);
+            }
+        }
+
+        public static async Task BatchInsertWithoutTransactionAsync(int count)
+        {
+            try
+            {
+                using (var conn = GetConnection())
+                {
+                    await conn.OpenAsync();
+                    string sql = @"
+                        INSERT INTO TemperatureHistory (DeviceName, Temperature, CollectTime, QualityStamp)
+                        VALUES (@deviceName, @temperature, @collectTime, @qualityStamp)";
+                    using (var cmd = new SQLiteCommand(sql, conn))
+                    {
+                        for (int i = 0; i < count; i++)
+                        {
+                            cmd.Parameters.Clear();
+                            cmd.Parameters.AddWithValue("@deviceName", $"Device_{i % 10}");
+                            cmd.Parameters.AddWithValue("@temperature", 20 + (i % 10));
+                            cmd.Parameters.AddWithValue("@collectTime", DateTime.Now);
+                            cmd.Parameters.AddWithValue("@qualityStamp", 1);
+                            await cmd.ExecuteNonQueryAsync();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"批量插入数据失败: {ex.Message}", ex);
             }
         }
         #endregion

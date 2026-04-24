@@ -1,5 +1,6 @@
 using System;
 using System.Data;
+using System.Threading.Tasks;
 using Winform_SQLite.DAL;
 using Winform_SQLite.Models;
 
@@ -230,6 +231,78 @@ namespace Winform_SQLite.BLL
                 deviceCount = 0;
                 tempCount = 0;
                 Log($"[错误] 统计失败: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void TestBatchInsertWithTransaction(int count)
+        {
+            try
+            {
+                Log($"开始带事务批量插入 {count} 条数据...");
+                DateTime startTime = DateTime.Now;
+                DAL.DAL.BatchInsertWithTransaction(count);
+                DateTime endTime = DateTime.Now;
+                TimeSpan duration = endTime - startTime;
+                Log($"带事务批量插入完成，耗时: {duration.TotalSeconds:F4} 秒");
+            }
+            catch (Exception ex)
+            {
+                Log($"[错误] 带事务批量插入失败: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void TestBatchInsertWithoutTransaction(int count)
+        {
+            try
+            {
+                Log($"开始无事务批量插入 {count} 条数据...");
+                DateTime startTime = DateTime.Now;
+                DAL.DAL.BatchInsertWithoutTransaction(count);
+                DateTime endTime = DateTime.Now;
+                TimeSpan duration = endTime - startTime;
+                Log($"无事务批量插入完成，耗时: {duration.TotalSeconds:F4} 秒");
+            }
+            catch (Exception ex)
+            {
+                Log($"[错误] 无事务批量插入失败: {ex.Message}");
+                throw;
+            }
+        }
+
+        public async Task TestBatchInsertWithTransactionAsync(int count)
+        {
+            try
+            {
+                Log($"开始异步带事务批量插入 {count} 条数据...");
+                DateTime startTime = DateTime.Now;
+                await DAL.DAL.BatchInsertWithTransactionAsync(count);
+                DateTime endTime = DateTime.Now;
+                TimeSpan duration = endTime - startTime;
+                Log($"异步带事务批量插入完成，耗时: {duration.TotalSeconds:F4} 秒");
+            }
+            catch (Exception ex)
+            {
+                Log($"[错误] 异步带事务批量插入失败: {ex.Message}");
+                throw;
+            }
+        }
+
+        public async Task TestBatchInsertWithoutTransactionAsync(int count)
+        {
+            try
+            {
+                Log($"开始异步无事务批量插入 {count} 条数据...");
+                DateTime startTime = DateTime.Now;
+                await DAL.DAL.BatchInsertWithoutTransactionAsync(count);
+                DateTime endTime = DateTime.Now;
+                TimeSpan duration = endTime - startTime;
+                Log($"异步无事务批量插入完成，耗时: {duration.TotalSeconds:F4} 秒");
+            }
+            catch (Exception ex)
+            {
+                Log($"[错误] 异步无事务批量插入失败: {ex.Message}");
                 throw;
             }
         }

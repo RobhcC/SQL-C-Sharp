@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Winform_SQLite.BLL;
 
@@ -252,6 +253,72 @@ namespace Winform_SQLite
             catch (Exception ex)
             {
                 Log($"[错误] 统计数据失败: {ex.Message}");
+            }
+        }
+        #endregion
+
+        #region 批量插入测试事件
+        private void btnBatchInsertWithTransaction_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                bll.TestBatchInsertWithTransaction(10000);
+            }
+            catch (Exception ex)
+            {
+                Log($"[错误] 带事务批量插入测试失败: {ex.Message}");
+            }
+        }
+
+        private void btnBatchInsertWithoutTransaction_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                bll.TestBatchInsertWithoutTransaction(10000);
+            }
+            catch (Exception ex)
+            {
+                Log($"[错误] 无事务批量插入测试失败: {ex.Message}");
+            }
+        }
+
+        private async void btnBatchInsertWithTransactionAsync_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                btnBatchInsertWithTransactionAsync.Enabled = false;
+                btnBatchInsertWithoutTransactionAsync.Enabled = false;
+                Log("[提示] 开始带事务批量插入，请稍候...");
+                await Task.Run(() => bll.TestBatchInsertWithTransactionAsync(10000).Wait());
+            }
+            catch (Exception ex)
+            {
+                Log($"[错误] 异步带事务批量插入测试失败: {ex.Message}");
+            }
+            finally
+            {
+                btnBatchInsertWithTransactionAsync.Enabled = true;
+                btnBatchInsertWithoutTransactionAsync.Enabled = true;
+            }
+        }
+
+        private async void btnBatchInsertWithoutTransactionAsync_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                btnBatchInsertWithTransactionAsync.Enabled = false;
+                btnBatchInsertWithoutTransactionAsync.Enabled = false;
+                Log("[提示] 开始无事务批量插入，请稍候...");
+                await Task.Run(() => bll.TestBatchInsertWithoutTransactionAsync(1000).Wait());
+            }
+            catch (Exception ex)
+            {
+                Log($"[错误] 异步无事务批量插入测试失败: {ex.Message}");
+            }
+            finally
+            {
+                btnBatchInsertWithTransactionAsync.Enabled = true;
+                btnBatchInsertWithoutTransactionAsync.Enabled = true;
             }
         }
         #endregion
